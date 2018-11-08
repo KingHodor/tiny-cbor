@@ -65,11 +65,53 @@ void test4() {
     check_print("83010203", result_hex, "cbor test 1");
 }
 
+void test5() {
+    uint8_t result[64];
+    char result_hex[128];
+    size_t written = 0;
+
+    cborItem cborParentArr;
+    cbor_create_array(&cborParentArr);
+
+    cborItem cborParentInt;
+    cbor_create_integer(&cborParentInt, 1);
+
+
+    cborItem cborChildArr1;
+    cbor_create_array(&cborChildArr1);
+    cborItem cborChild1Int1;
+    cborItem cborChild1Int2;
+    cbor_create_integer(&cborChild1Int1, 2);
+    cbor_create_integer(&cborChild1Int2, 3);
+    cbor_add_item_to_array(&cborChildArr1, &cborChild1Int1);
+    cbor_add_item_to_array(&cborChildArr1, &cborChild1Int2);
+
+
+    cborItem cborChildArr2;
+    cbor_create_array(&cborChildArr2);
+    cborItem cborChild2Int1;
+    cborItem cborChild2Int2;
+    cbor_create_integer(&cborChild2Int1, 4);
+    cbor_create_integer(&cborChild2Int2, 5);
+    cbor_add_item_to_array(&cborChildArr2, &cborChild2Int1);
+    cbor_add_item_to_array(&cborChildArr2, &cborChild2Int2);
+
+
+    cbor_add_item_to_array(&cborParentArr, &cborParentInt);
+    cbor_add_item_to_array(&cborParentArr, &cborChildArr1);
+    cbor_add_item_to_array(&cborParentArr, &cborChildArr2);
+
+    cbor_encode(result, &written, &cborParentArr);
+    int8_to_char(result, written, result_hex);
+    check_print("8301820203820405", result_hex, "cbor test 6");
+}
+
 
 int main() {
     test1(); // encoding integer
     test2(); // encoding bytes
     test3(); // encoding tag
     test4(); // encoding array
+    test5(); // encoding array
     return 0;
 }
