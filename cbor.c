@@ -58,11 +58,11 @@ static void cbor_encode_array(u_int8_t *new_bytes, size_t *written, cborItem * p
     }
 }
 
-static void cbor_encode_positive_int(u_int8_t *new_bytes, size_t *written, unsigned int value){
+static void cbor_encode_positive_int(u_int8_t *new_bytes, size_t *written, long value){
     cbor_encode_type_and_length(MT_UNSIGNED, value, new_bytes, written);
 }
 
-static void cbor_encode_negative_int(u_int8_t *new_bytes, size_t *written, unsigned int value){
+static void cbor_encode_negative_int(u_int8_t *new_bytes, size_t *written, long value){
     cbor_encode_type_and_length(MT_NEGATIVE, value, new_bytes, written);
 }
 
@@ -111,8 +111,8 @@ int cbor_encode(u_int8_t *new_bytes, size_t *written, cborItem * item){
     return NO_ERROR;
 }
 
-void cbor_create_integer(cborItem * item, unsigned int value){
-    int singedValue = (int)value;
+void cbor_create_integer(cborItem * item, long value){
+    long singedValue = value;
     if (singedValue < 0){
         item->type = MT_NEGATIVE;
     }else{
