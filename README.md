@@ -8,7 +8,6 @@ Read more in the [documentation on ReadTheDocs](http://cbor.io/).
 ## encode integer 
 ```c
     uint8_t result[64];
-    char result_hex[128];
     size_t written;
    
     cborItem cborInteger;
@@ -18,7 +17,6 @@ Read more in the [documentation on ReadTheDocs](http://cbor.io/).
 ## encode bytes 
 ```c
     uint8_t result[64];
-    char result_hex[128];
     size_t written = 0;
     
     cborItem cborBytes;
@@ -29,7 +27,6 @@ Read more in the [documentation on ReadTheDocs](http://cbor.io/).
 ## encode tag 
 ```c
     uint8_t result[64];
-    char result_hex[128];
     size_t written = 0;
     
     cborItem cborTag;
@@ -41,7 +38,6 @@ Read more in the [documentation on ReadTheDocs](http://cbor.io/).
 ## encode array 
 ```c
     uint8_t result[64];
-    char result_hex[128];
     size_t written = 0;
     
     cborItem cborInteger1;
