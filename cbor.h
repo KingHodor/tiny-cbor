@@ -44,7 +44,7 @@ typedef struct cborItem {
     /** CBOR_TEXT */
     char str[512];
     /** CBOR_INT */
-    unsigned int uint;
+    long uint;
     /** CBOR_TAG*/
     long tag;
 
@@ -56,7 +56,7 @@ typedef struct cborItem {
 
 int cbor_encode(u_int8_t *new_bytes, size_t *written, cborItem *item);
 
-void cbor_create_integer(cborItem *item, unsigned int value);
+void cbor_create_integer(cborItem *item, long value);
 
 void cbor_create_tag(cborItem *item, uint8_t *value, size_t value_size, long tag);
 
