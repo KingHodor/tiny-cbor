@@ -56,4 +56,4 @@ Read more in the [documentation on ReadTheDocs](http://cbor.io/).
 
 ## Getting help
 
-Please contact ahmet@evercoin.com
+Please contact sfa.alptekin@gmail.com
