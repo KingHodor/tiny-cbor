@@ -1,18 +1,14 @@
-//
-// Created by Zehra Alptekin on 11/5/18.
-//
+#ifndef TINY_CBOR_CBOR_H
+#define TINY_CBOR_CBOR_H
 
-#ifndef CORE_WALLET_CBOR_H
-#define CORE_WALLET_CBOR_H
+#include <stdint.h>
+#include <stdio.h>
 
-#include "convert_util.h"
+#define PB_BYTES_ARRAY_T(n) struct { uint8_t size; uint8_t bytes[n]; }
 
-//typedef PB_BYTES_ARRAY_T(128) cbor_bytes;
-struct cbor_bytes {
-    pb_size_t size;
-    pb_byte_t bytes[128];
-};
-typedef struct cbor_bytes cbor_bytes;
+typedef uint_least8_t pb_size_t;
+typedef unsigned char u_int8_t;
+typedef PB_BYTES_ARRAY_T(512) cbor_bytes;
 
 typedef enum {
     MT_INVALID = -1,
@@ -26,7 +22,6 @@ typedef enum {
     MT_PRIMITIVE = 7,
     MT_INDEFINITE = 8,
     MT_RAW = 9
-
 } MajorType;
 
 typedef enum {
@@ -82,4 +77,4 @@ void cbor_add_item_to_array(cborItem *parent, cborItem *newItem);
 
 void cbor_create_map(cborItem *parent);
 
-#endif //CORE_WALLET_CBOR_H
+#endif //TINY_CBOR_CBOR_H
