@@ -2,7 +2,6 @@
 #include "cbor.h"
 #include "error_types.h"
 
-
 static void cbor_write_bytes(const u_int8_t *bytes, const size_t bytes_size, u_int8_t *new_bytes, size_t *written) {
     for (int i = 0; i < bytes_size; ++i) {
         new_bytes[(*written) + i] = bytes[i];
@@ -198,6 +197,3 @@ void cbor_add_item_to_array(cborItem * parent, cborItem * newItem){
 void cbor_create_map(cborItem * parent){
     parent->type = MT_MAP;
 }
-
-
-
