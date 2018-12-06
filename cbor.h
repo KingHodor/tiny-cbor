@@ -1,13 +1,18 @@
-#ifndef TINY_CBOR_CBOR_H
-#define TINY_CBOR_CBOR_H
+//
+// Created by Zehra Alptekin on 11/5/18.
+//
 
-#include <stdint.h>
-#include <stdio.h>
+#ifndef CORE_WALLET_CBOR_H
+#define CORE_WALLET_CBOR_H
 
-#define PB_BYTES_ARRAY_T(n) struct { uint8_t size; uint8_t bytes[n]; }
+#include "convert_util.h"
 
-typedef unsigned char u_int8_t;
-typedef PB_BYTES_ARRAY_T(512) cbor_bytes;
+//typedef PB_BYTES_ARRAY_T(128) cbor_bytes;
+struct cbor_bytes {
+    pb_size_t size;
+    pb_byte_t bytes[128];
+};
+typedef struct cbor_bytes cbor_bytes;
 
 typedef enum {
     MT_INVALID = -1,
@@ -18,7 +23,10 @@ typedef enum {
     MT_ARRAY = 4,
     MT_MAP = 5,
     MT_TAG = 6,
-    MT_SPECIAL = 7
+    MT_PRIMITIVE = 7,
+    MT_INDEFINITE = 8,
+    MT_RAW = 9
+
 } MajorType;
 
 typedef enum {
@@ -54,6 +62,8 @@ typedef struct cborItem {
     struct cborItem *nextItem;
 } cborItem;
 
+void cbor_encode_indefinite_length_array(u_int8_t *new_bytes, size_t *written, cborItem * parent);
+
 int cbor_encode(u_int8_t *new_bytes, size_t *written, cborItem *item);
 
 void cbor_create_integer(cborItem *item, long value);
@@ -62,10 +72,14 @@ void cbor_create_tag(cborItem *item, uint8_t *value, size_t value_size, long tag
 
 void cbor_create_bytes(cborItem *item, uint8_t *bytes, size_t byte_size);
 
+void cbor_create_raw(cborItem *item, uint8_t *bytes, size_t byte_size);
+
 void cbor_create_array(cborItem *parent);
+
+void cbor_infinite_create_array(cborItem * parent);
 
 void cbor_add_item_to_array(cborItem *parent, cborItem *newItem);
 
 void cbor_create_map(cborItem *parent);
 
-#endif //TINY_CBOR_CBOR_H
+#endif //CORE_WALLET_CBOR_H
